@@ -5,8 +5,11 @@ from pyquery import PyQuery
 class Currency:
     # 定義貨幣屬性: 名稱name、銀行買入價bid、銀行賣出價offer
     def __init__(self, name, bid, offer):
+        # 貨幣名稱
         self.name = name
+        # 買價
         self.bid = bid
+        # 賣價
         self.offer = offer
 
     def show_info(self):
@@ -61,10 +64,21 @@ class CurrencyCrawler:
             return currency.show_info()
         else:
             return f'查無此貨幣資訊'
+    def get_name_list(self):
+        '''
+            get_name_list()
+            回傳貨幣清單
+        '''
+        name_list = []
+        for name in self.data:
+            name_list.append(name)
+        return name_list
+
 
 
 # crawler = CurrencyCrawler()
 # crawler.fetch_data()
+# print(crawler.get_name_list())
 # print(crawler.get_data('美金'))
 # print(crawler.get_data('港幣'))
 # print(crawler.get_data('加拿大幣'))
