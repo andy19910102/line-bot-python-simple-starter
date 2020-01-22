@@ -7,7 +7,7 @@ class Currency:
     def __init__(self, name, bid, offer):
         # 貨幣名稱
         self.name = name
-        # 買價
+        # 買價
         self.bid = bid
         # 賣價
         self.offer = offer
