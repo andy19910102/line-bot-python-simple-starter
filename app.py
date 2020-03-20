@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 運行以下程式需安裝模組: line-bot-sdk, flask
+# 運行以下程式需安裝模組: line-bot-sdk, flask, pyquery
 
 # 引入flask模組
 from flask import Flask, request, abort
@@ -19,8 +19,9 @@ from linebot.exceptions import (
 # 如需增加其他處理器請參閱以下網址的 Message objects 章節
 # https://github.com/line/line-bot-sdk-python
 from linebot.models import (
-    MessageEvent, TextMessage, StickerMessage, TextSendMessage, StickerSendMessage, LocationSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, CarouselTemplate, CarouselColumn
+    MessageEvent, TextMessage, StickerMessage, TextSendMessage, StickerSendMessage, LocationSendMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, CarouselTemplate, CarouselColumn
 )
+
 
 # 定義應用程式是一個Flask類別產生的實例
 app = Flask(__name__)
@@ -41,10 +42,6 @@ def callback():
     # 當LINE發送訊息給機器人時，從header取得 X-Line-Signature
     # X-Line-Signature 用於驗證頻道是否合法
     signature = request.headers['X-Line-Signature']
-    print('[REQUEST]')
-    print(request)
-    print('[SIGNATURE]')
-    print(signature)
 
     # 將取得到的body內容轉換為文字處理
     body = request.get_data(as_text=True)
@@ -67,6 +64,7 @@ def callback():
 def handle_message(event):
     # 當有文字訊息傳入時
     # event.message.text : 使用者輸入的訊息內容
+    print('*'*30)
     print('[使用者傳入文字訊息]')
     print(str(event))
     # 準備要回傳的文字訊息
@@ -82,6 +80,7 @@ def handle_message(event):
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
     # 當有貼圖訊息傳入時
+    print('*'*30)
     print('[使用者傳入貼圖訊息]')
     print(str(event))
 

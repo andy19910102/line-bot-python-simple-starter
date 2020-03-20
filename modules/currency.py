@@ -58,27 +58,22 @@ class CurrencyCrawler:
             get_data(currency_name)
             輸入currency_name(str):貨幣名稱，如：美金、港幣
             輸出str:回傳此貨幣報告
+            EX: 美金 => 美金,買價:29.83 賣價:30.5
+            EX: 日圓 => 日圓,買價:0.2667 賣價:0.2795
         '''
         if currency_name in self.data:
             currency = self.data[currency_name]
             return currency.show_info()
         else:
             return f'查無此貨幣資訊'
+
     def get_name_list(self):
         '''
             get_name_list()
             回傳貨幣清單
+            EX => ['美金', '港幣', '英鎊', '澳幣', '加拿大幣', '新加坡幣', '瑞士法郎', '日圓', '南非幣', '瑞典幣', '紐元', '泰幣', '菲國比索', '印尼幣', '歐元', '韓元', '越南盾', '馬來幣', '人民幣']
         '''
         name_list = []
         for name in self.data:
             name_list.append(name)
         return name_list
-
-
-
-# crawler = CurrencyCrawler()
-# crawler.fetch_data()
-# print(crawler.get_name_list())
-# print(crawler.get_data('美金'))
-# print(crawler.get_data('港幣'))
-# print(crawler.get_data('加拿大幣'))
