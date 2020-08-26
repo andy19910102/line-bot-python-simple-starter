@@ -66,10 +66,14 @@ def handle_message(event):
     print('*'*30)
     print('[使用者傳入文字訊息]')
     print(str(event))
+    # 取得使用者說的文字
+    user_msg = event.message.text
     # 準備要回傳的文字訊息
-    reply = TextSendMessage(text='Hi')
+    reply = TextSendMessage(text=f'Hi,你剛才說的是「{user_msg}」對吧！')
 
     # 回傳訊息
+    # 若需要回覆多筆訊息可使用
+    # line_bot_api.reply_message(token, [Object, Object, ...])
     line_bot_api.reply_message(
         event.reply_token,
         reply)
@@ -99,7 +103,7 @@ if __name__ == "__main__":
     # 取得遠端環境使用的連接端口，若是在本機端測試則預設開啟於port5500
     port = int(os.environ.get('PORT', 5500))
     # 使app開始在此連接端口上運行
-    print('[Flask運行於連接端口:{}]'.format(port))
+    print(f'[Flask運行於連接端口:{port}]')
     # 本機測試使用127.0.0.1, debug=True
     # Heroku部署使用 0.0.0.0
     app.run(host='127.0.0.1', port=port, debug=True)

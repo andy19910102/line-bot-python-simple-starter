@@ -24,10 +24,14 @@ class Currency:
 
 class CurrencyCrawler:
     # 貨幣爬蟲屬性: 目標網址url(https://rate.bot.com.tw/xrt?Lang=zh-TW)、爬取的資料data
-    # 貨幣爬蟲函數: 爬取資料fetch_data,get_data
+    # 貨幣爬蟲函數:
+    # fetch_data(): 爬取資料,
+    # get_report(幣別名稱): 查詢幣別資訊
     def __init__(self):
         self.url = 'https://rate.bot.com.tw/xrt?Lang=zh-TW'
         self.data = {}
+        print('[爬蟲實例已被建立，準備第一次爬取資料]')
+        self.fetch_data()
 
     def fetch_data(self):
         '''
@@ -49,13 +53,14 @@ class CurrencyCrawler:
         for n_idx, name in enumerate(names):
             if n_idx % 2 == 0:
                 # 建立一個貨幣表
+                # Currency(貨幣名稱, 買價, 賣價)
                 self.data[name] = Currency(name, bids[p], offers[p])
                 # 把p+1
                 p += 1
 
-    def get_data(self, currency_name):
+    def get_report(self, currency_name):
         '''
-            get_data(currency_name)
+            get_report(currency_name)
             輸入currency_name(str):貨幣名稱，如：美金、港幣
             輸出str:回傳此貨幣報告
             EX: 美金 => 美金,買價:29.83 賣價:30.5
@@ -66,14 +71,3 @@ class CurrencyCrawler:
             return currency.show_info()
         else:
             return f'查無此貨幣資訊'
-
-    def get_name_list(self):
-        '''
-            get_name_list()
-            回傳貨幣清單
-            EX => ['美金', '港幣', '英鎊', '澳幣', '加拿大幣', '新加坡幣', '瑞士法郎', '日圓', '南非幣', '瑞典幣', '紐元', '泰幣', '菲國比索', '印尼幣', '歐元', '韓元', '越南盾', '馬來幣', '人民幣']
-        '''
-        name_list = []
-        for name in self.data:
-            name_list.append(name)
-        return name_list

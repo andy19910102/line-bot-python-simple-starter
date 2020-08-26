@@ -1,19 +1,32 @@
 from linebot.models import (
-    MessageEvent, TextMessage, StickerMessage, TextSendMessage, ImageSendMessage, StickerSendMessage, LocationSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, CarouselTemplate, CarouselColumn
+    MessageEvent, TextMessage, StickerMessage, TextSendMessage, ImageSendMessage, StickerSendMessage, LocationSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, CarouselTemplate, CarouselColumn, QuickReply, QuickReplyButton
 )
 
 # 官方文件
 # https://github.com/line/line-bot-sdk-python
 
-
+# 常見問答表
 faq = {
     '貼圖': StickerSendMessage(
         package_id='1',
         sticker_id='1'
     ),
-    '照片': ImageSendMessage(
-        original_content_url='https://picsum.photos/id/1040/900/400',
-        preview_image_url='https://picsum.photos/id/1040/900/400'
+    '門市照片': ImageSendMessage(
+        original_content_url='https://picsum.photos/id/395/900/400',
+        preview_image_url='https://picsum.photos/id/395/900/400'
+    ),
+    '交通': TextSendMessage(text='請問您想使用何種方式前往？',
+                          quick_reply=QuickReply(items=[
+                              QuickReplyButton(action=MessageAction(
+                                  label="搭乘捷運", text="捷運")
+                              ),
+                              QuickReplyButton(action=MessageAction(
+                                  label="搭乘公車", text="公車")
+                              )
+                          ])
+                          ),
+    '捷運': TextSendMessage(
+        text="搭乘捷運至木柵線科技大樓站步行5分鐘即可抵達。"
     ),
     '營業地址': LocationSendMessage(
         title='my location',
@@ -26,10 +39,10 @@ faq = {
         template=CarouselTemplate(
             columns=[
                 CarouselColumn(
-                    # 卡片一圖片網址
-                    thumbnail_image_url='https://picsum.photos/id/1070/900/400',
-                    title='卡片一標題',
-                    text='內文一',
+                    # 匯率選單一圖片網址
+                    thumbnail_image_url='https://picsum.photos/id/352/900/400',
+                    title='匯率選單一',
+                    text='點選下方按鈕查詢即時匯率',
                     actions=[
                         MessageAction(
                             label='查詢美金',
@@ -46,10 +59,10 @@ faq = {
                     ]
                 ),
                 CarouselColumn(
-                    # 卡片二圖片網址
-                    thumbnail_image_url='https://picsum.photos/id/1071/900/400',
-                    title='卡片二標題',
-                    text='內文二',
+                    # 匯率選單二圖片網址
+                    thumbnail_image_url='https://picsum.photos/id/364/900/400',
+                    title='匯率選單二',
+                    text='點選下方按鈕查詢即時匯率',
                     actions=[
                         MessageAction(
                             label='查詢澳幣',
@@ -66,10 +79,10 @@ faq = {
                     ]
                 ),
                 CarouselColumn(
-                    # 卡片三圖片網址
-                    thumbnail_image_url='https://picsum.photos/id/1072/900/400',
-                    title='卡片三標題',
-                    text='內文三',
+                    # 匯率選單三圖片網址
+                    thumbnail_image_url='https://picsum.photos/id/355/900/400',
+                    title='匯率選單三',
+                    text='點選下方按鈕查詢即時匯率',
                     actions=[
                         MessageAction(
                             label='查詢瑞士法郎',
@@ -97,9 +110,9 @@ menu = TemplateSendMessage(
         columns=[
             CarouselColumn(
                 # 卡片一圖片網址
-                thumbnail_image_url='https://picsum.photos/id/1070/900/400',
-                title='主選單',
-                text='主選單敘述',
+                thumbnail_image_url='https://picsum.photos/id/296/900/400',
+                title='主選單一',
+                text='點選下方按鈕開始互動',
                 actions=[
                     MessageAction(
                         label='查詢匯率',
@@ -112,6 +125,26 @@ menu = TemplateSendMessage(
                     MessageAction(
                         label='營業地址',
                         text='營業地址'
+                    )
+                ]
+            ),
+            CarouselColumn(
+                # 卡片二圖片網址
+                thumbnail_image_url='https://picsum.photos/id/355/900/400',
+                title='主選單二',
+                text='點選下方按鈕開始互動',
+                actions=[
+                    MessageAction(
+                        label='交通資訊',
+                        text='交通'
+                    ),
+                    MessageAction(
+                        label='門市照片',
+                        text='門市照片'
+                    ),
+                    URIAction(
+                        label='官方網站',
+                        uri='https://train.csie.ntu.edu.tw/train/'
                     )
                 ]
             )
