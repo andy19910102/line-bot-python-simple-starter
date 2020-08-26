@@ -50,7 +50,6 @@ def callback():
 
     # 一但驗證合法後，將body內容傳至handler
     try:
-        print('[X-LINE-SIGNATURE驗證成功]')
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
