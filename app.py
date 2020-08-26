@@ -28,8 +28,8 @@ app = Flask(__name__)
 
 # LINE的Webhook為了辨識開發者身份所需的資料
 # 相關訊息進入網址(https://developers.line.me/console/)
-CHANNEL_ACCESS_TOKEN = '請將此字串置換成你的 CHANNEL_ACCESS_TOKEN'
-CHANNEL_SECRET = '請將此字串置換成你的 CHANNEL_SECRET'
+CHANNEL_ACCESS_TOKEN = '請將此字串置換成你的_CHANNEL_ACCESS_TOKEN'
+CHANNEL_SECRET = '請將此字串置換成你的_CHANNEL_SECRET'
 
 # ================== 以下為 X-LINE-SIGNATURE 驗證程序 ==================
 
