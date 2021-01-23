@@ -3,7 +3,7 @@ from pyquery import PyQuery
 
 
 class Currency:
-    # 定義貨幣屬性: 名稱name、銀行買入價bid、銀行賣出價offer
+    # 定義貨幣物件有的屬性: 名稱name、銀行買入價bid、銀行賣出價offer
     def __init__(self, name, bid, offer):
         # 貨幣名稱
         self.name = name
@@ -11,13 +11,6 @@ class Currency:
         self.bid = bid
         # 賣價
         self.offer = offer
-
-    def show_info(self):
-        '''
-            show_info()
-            輸出str:回傳此貨幣報告
-        '''
-        return f'{self.name},買價:{self.bid}賣價:{self.offer}'
 
 # 貨幣爬蟲
 
@@ -28,9 +21,12 @@ class CurrencyCrawler:
     # fetch_data(): 爬取資料,
     # get_report(幣別名稱): 查詢幣別資訊
     def __init__(self):
+        # 爬蟲爬取來源
         self.url = 'https://rate.bot.com.tw/xrt?Lang=zh-TW'
-        self.data = {}
-        print('[爬蟲實例已被建立，準備第一次爬取資料]')
+        # 幣別的集合
+        # { "美金": <CurrencyObject>, "港幣": <CurrencyObject>, "英鎊": <CurrencyObject>, "澳幣": <CurrencyObject>, }
+        self.collection = {}
+        # 執行 fetch_data() 函數爬取資料
         self.fetch_data()
 
     def fetch_data(self):
@@ -52,9 +48,11 @@ class CurrencyCrawler:
         p = 0
         for n_idx, name in enumerate(names):
             if n_idx % 2 == 0:
-                # 建立一個貨幣表
+                # 建立一個貨幣物件 Currency
                 # Currency(貨幣名稱, 買價, 賣價)
-                self.data[name] = Currency(name, bids[p], offers[p])
+                # 並將此貨幣物件作為是 collection字典 的 其中一個 value
+                # 例如 { "美金": <CurrencyObject>, }
+                self.collection[name] = Currency(name, bids[p], offers[p])
                 # 把p+1
                 p += 1
 
@@ -66,8 +64,11 @@ class CurrencyCrawler:
             EX: 美金 => 美金,買價:29.83 賣價:30.5
             EX: 日圓 => 日圓,買價:0.2667 賣價:0.2795
         '''
-        if currency_name in self.data:
-            currency = self.data[currency_name]
-            return currency.show_info()
+        if currency_name in self.collection:
+            # 透過傳入的 currency_name ('美金', '港幣', '英鎊', ...)
+            # 從collection字典內取得貨幣物件
+            currency = self.collection[currency_name]
+            report = f'{currency.name},買價:{currency.bid}賣價:{currency.offer}'
+            return report
         else:
             return f'查無此貨幣資訊'

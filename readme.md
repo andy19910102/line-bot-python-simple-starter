@@ -1,9 +1,11 @@
 
 # Line-bot-python-simple-starter
 
-## 安裝Line-bot-SDK
+## 安裝所需要的外部模組
 ```
-pip install line-bot-sdk
+$ pip install flask
+$ pip install line-bot-sdk
+$ pip install pyquery
 ```
 
 ## 說明

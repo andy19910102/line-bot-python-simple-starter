@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
 # 運行以下程式需安裝模組: line-bot-sdk, flask, pyquery
+# 安裝方式，輸入指令: pip install 模組名稱
 
 # 引入flask模組
 from flask import Flask, request, abort
@@ -11,15 +11,23 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 
-# MessageEvent: 收到訊息的處理器
-# TextMessage: 接收使用者文字訊息的處理器
-# StickerMessage: 接收使用者貼圖訊息的處理器
-# TextSendMessage: 回傳文字訊息的處理器
-# StickerSendMessage: 回傳貼圖訊息的處理器
 # 如需增加其他處理器請參閱以下網址的 Message objects 章節
 # https://github.com/line/line-bot-sdk-python
 from linebot.models import (
-    MessageEvent, TextMessage, StickerMessage, TextSendMessage, StickerSendMessage, LocationSendMessage, ImageSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, CarouselTemplate, CarouselColumn
+    MessageEvent,
+    TextMessage,
+    StickerMessage,
+    TextSendMessage,
+    StickerSendMessage,
+    LocationSendMessage,
+    ImageSendMessage,
+    TemplateSendMessage,
+    ButtonsTemplate,
+    PostbackAction,
+    MessageAction,
+    URIAction,
+    CarouselTemplate,
+    CarouselColumn
 )
 
 
@@ -31,12 +39,9 @@ app = Flask(__name__)
 CHANNEL_ACCESS_TOKEN = '請將此字串置換成你的_CHANNEL_ACCESS_TOKEN'
 CHANNEL_SECRET = '請將此字串置換成你的_CHANNEL_SECRET'
 
-# ================== 以下為 X-LINE-SIGNATURE 驗證程序 ==================
-
+# ********* 以下為 X-LINE-SIGNATURE 驗證程序 *********
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
-
-
 @app.route("/", methods=['POST'])
 def callback():
     # 當LINE發送訊息給機器人時，從header取得 X-Line-Signature
@@ -55,10 +60,10 @@ def callback():
         abort(400)
 
     return 'OK'
-# ================== 以上為 X-LINE-SIGNATURE 驗證程序 ==================
+# ********* 以上為 X-LINE-SIGNATURE 驗證程序 *********
 
 
-# ========== 文字訊息傳入時的處理器 ==========
+# 文字訊息傳入時的處理器
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # 當有文字訊息傳入時
@@ -79,7 +84,7 @@ def handle_message(event):
         reply)
 
 
-# ========== 貼圖訊息傳入時的處理器 ==========
+# 貼圖訊息傳入時的處理器 
 @handler.add(MessageEvent, message=StickerMessage)
 def handle_sticker_message(event):
     # 當有貼圖訊息傳入時
@@ -100,7 +105,7 @@ def handle_sticker_message(event):
 import os
 if __name__ == "__main__":
     print('[伺服器開始運行]')
-    # 取得遠端環境使用的連接端口，若是在本機端測試則預設開啟於port5500
+    # 取得遠端環境使用的連接端口，若是在本機端測試則預設開啟於port=5500
     port = int(os.environ.get('PORT', 5500))
     # 使app開始在此連接端口上運行
     print(f'[Flask運行於連接端口:{port}]')
