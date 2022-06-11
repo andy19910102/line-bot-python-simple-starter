@@ -50,8 +50,8 @@ def callback():
 
     # 將取得到的body內容轉換為文字處理
     body = request.get_data(as_text=True)
-    print("[BODY]")
-    print(body)
+    print("[app.route]訊息進入X-Line-Signature驗證程序")
+    # print(body)
 
     # 一但驗證合法後，將body內容傳至handler
     try:
@@ -70,7 +70,7 @@ def handle_message(event):
     # event.message.text : 使用者輸入的訊息內容
     print('*'*30)
     print('[使用者傳入文字訊息]')
-    print(str(event))
+    # print(str(event))
     # 取得使用者說的文字
     user_msg = event.message.text
     # 準備要回傳的文字訊息
