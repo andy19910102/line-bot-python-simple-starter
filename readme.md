@@ -14,13 +14,13 @@ $ pip install pyquery
 
 ## 檔案敘述
 
-|檔案名稱|功能|
-|-|-|
-|app.py|Linebot主程式、Flask應用主程式|
-|Procfile|成功上架至Heroku後的執行檔案，Heroku將會執行這個檔案內所寫的指令 `python app.py`來執行這主程式|
-|requirements.txt|套件需求檔，**所有使用到的外部套件需條列在此檔內**，應用程式上架至Heroku後需透過此檔案替執行環境安裝所需套件|
-|readme.md|本說明文件|
-|.gitignore|條列不想要被git紀錄的檔案|
+| 檔案名稱         | 功能                                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| app.py           | Linebot主程式、Flask應用主程式                                                                               |
+| Procfile         | 成功上架至Heroku後的執行檔案，Heroku將會執行這個檔案內所寫的指令 `python app.py`來執行這主程式               |
+| requirements.txt | 套件需求檔，**所有使用到的外部套件需條列在此檔內**，應用程式上架至Heroku後需透過此檔案替執行環境安裝所需套件 |
+| readme.md        | 本說明文件                                                                                                   |
+| .gitignore       | 條列不想要被git紀錄的檔案                                                                                    |
 
 ## 初次建構的環境需求
 需要透過此範例架設Line聊天機器人，必須準備好以下步驟
@@ -39,7 +39,6 @@ $ pip install pyquery
 
 初次安裝好Git請透過終端機輸入以下指令：
 ```
-git config --global color.ui true
 git config --global user.name 你的使用者名稱
 git config --global user.email 你的Email
 ```
