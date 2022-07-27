@@ -104,6 +104,8 @@ faq = {
 }
 
 # 主選單
+# Carousel Template
+# https://developers.line.biz/en/docs/messaging-api/message-types/#carousel-template
 menu = TemplateSendMessage(
     alt_text='Carousel template',
     template=CarouselTemplate(

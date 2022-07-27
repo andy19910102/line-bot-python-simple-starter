@@ -1,11 +1,11 @@
 
 # Line-bot-python-simple-starter
 
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Line](https://img.shields.io/badge/Line-00C300?style=for-the-badge&logo=line&logoColor=white) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
+
 ## 安裝所需要的外部模組
 ```
-$ pip install flask
-$ pip install line-bot-sdk
-$ pip install pyquery
+$ pip install line-bot-sdk flask pyquery
 ```
 
 ## 說明
@@ -48,6 +48,20 @@ git config --global user.email 你的Email
 1. 至[Heroku官方網站](https://dashboard.heroku.com/)註冊使用者帳號
 2. 下載[Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)並安裝至電腦內
 3. 在終端機內輸入指令`heroku login`登入Heroku
+
+#### 2.1 在MacOS安裝Heroku CLI的選項
+
+##### 2.1.1 Standalone Installation with a Tarball
+
+```shell=
+$ curl https://cli-assets.heroku.com/install.sh | sh
+```
+
+##### 2.1.2 Install with npm
+
+```shell=
+$ npm install -g heroku
+```
 
 ### 3. 註冊Line開發者帳號，並替你的機器人建立頻道
 

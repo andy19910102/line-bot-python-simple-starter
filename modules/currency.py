@@ -1,8 +1,5 @@
 from pyquery import PyQuery
 
-# 貨幣
-
-
 def get_exchange_table():
     # 資料來源網址
     url = 'https://rate.bot.com.tw/xrt?Lang=zh-TW'
