@@ -76,7 +76,7 @@ def handle_message(event):
     
     # 回傳訊息
     # 若需要回覆多筆訊息可使用
-    # line_bot_api.reply_message(token, [Object, Object, ...])
+    # line_bot_api.reply_message(token, 回應給使用者的訊息物件)
     line_bot_api.reply_message(
         event.reply_token,
         reply)
