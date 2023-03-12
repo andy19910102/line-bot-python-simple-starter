@@ -12,8 +12,8 @@ faq = {
         sticker_id='1'
     ),
     '門市照片': ImageSendMessage(
-        original_content_url='https://picsum.photos/id/395/900/400',
-        preview_image_url='https://picsum.photos/id/395/900/400'
+        original_content_url="https://fastly.picsum.photos/id/395/900/400.jpg?hmac=3y0-Ce1YyrujBAT9q2_GVXqC3CIgTSxPOKoLHlmspr0",
+        preview_image_url="https://fastly.picsum.photos/id/395/900/400.jpg?hmac=3y0-Ce1YyrujBAT9q2_GVXqC3CIgTSxPOKoLHlmspr0"
     ),
     '交通': TextSendMessage(text='請問您想使用何種方式前往？',
                           quick_reply=QuickReply(items=[
@@ -40,7 +40,7 @@ faq = {
             columns=[
                 CarouselColumn(
                     # 匯率選單一圖片網址
-                    thumbnail_image_url='https://picsum.photos/id/352/900/400',
+                    thumbnail_image_url="https://fastly.picsum.photos/id/352/900/400.jpg?hmac=WTGHcbEoO0_hYEWOE7qNwdFmPC-D7czQpegOKNqpZ0M",
                     title='匯率選單一',
                     text='點選下方按鈕查詢即時匯率',
                     actions=[
@@ -60,7 +60,7 @@ faq = {
                 ),
                 CarouselColumn(
                     # 匯率選單二圖片網址
-                    thumbnail_image_url='https://picsum.photos/id/364/900/400',
+                    thumbnail_image_url="https://fastly.picsum.photos/id/364/900/400.jpg?hmac=70RqcdkXgO-mMYyuGgaFXlB0twshHiFdvzgGhAOZggw",
                     title='匯率選單二',
                     text='點選下方按鈕查詢即時匯率',
                     actions=[
@@ -80,7 +80,7 @@ faq = {
                 ),
                 CarouselColumn(
                     # 匯率選單三圖片網址
-                    thumbnail_image_url='https://picsum.photos/id/355/900/400',
+                    thumbnail_image_url="https://fastly.picsum.photos/id/355/900/400.jpg?hmac=G2DG7Nfhf-KOUh0nSEYX7fO7TeC0zN7pkCRkb2Nj0M4",
                     title='匯率選單三',
                     text='點選下方按鈕查詢即時匯率',
                     actions=[
@@ -112,7 +112,7 @@ menu = TemplateSendMessage(
         columns=[
             CarouselColumn(
                 # 卡片一圖片網址
-                thumbnail_image_url='https://picsum.photos/id/296/900/400',
+                thumbnail_image_url="https://fastly.picsum.photos/id/296/900/400.jpg?hmac=-UMCy3LaLBAkWUI7zV2TKhejUhPUgfJjtGw10unfa-o",
                 title='主選單一',
                 text='點選下方按鈕開始互動',
                 actions=[
@@ -132,7 +132,7 @@ menu = TemplateSendMessage(
             ),
             CarouselColumn(
                 # 卡片二圖片網址
-                thumbnail_image_url='https://picsum.photos/id/355/900/400',
+                thumbnail_image_url="https://fastly.picsum.photos/id/355/900/400.jpg?hmac=G2DG7Nfhf-KOUh0nSEYX7fO7TeC0zN7pkCRkb2Nj0M4",
                 title='主選單二',
                 text='點選下方按鈕開始互動',
                 actions=[
