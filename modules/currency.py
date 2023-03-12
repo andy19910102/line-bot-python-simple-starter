@@ -1,4 +1,5 @@
 from pyquery import PyQuery
+import requests
 
 def get_exchange_table():
     # 資料來源網址
@@ -6,22 +7,24 @@ def get_exchange_table():
     # 輸出的字典
     table = {}
     # 爬取整份網頁
-    html = PyQuery(url)
+    res = requests.get(url)
+    html = res.text
+    html = PyQuery(html)
     # 所有貨幣名稱
     names = html('div.hidden-phone.print_show').text().split()
     # 所有現金買價
-    bids = html(
+    buy_list = html(
         'td.rate-content-cash.text-right.print_hide[data-table="本行現金買入"]').text().split()
     # 所有現金賣價
-    offers = html(
+    sell_list = html(
         'td.rate-content-cash.text-right.print_hide[data-table="本行現金賣出"]').text().split()
     # 價格計數器
     p = 0
     for n_idx, name in enumerate(names):
         if n_idx % 2 == 0:
             table[name] = {
-                "bid": bids[p],
-                "offer": offers[p]
+                "buy": buy_list[p],
+                "sell": sell_list[p]
             }
             # 把p+1
             p += 1
