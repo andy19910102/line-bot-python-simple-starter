@@ -63,17 +63,16 @@ def callback():
 # 文字訊息傳入時的處理器
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # 當有文字訊息傳入時
-    # event.message.text : 使用者輸入的訊息內容
+    # 當有文字訊息傳入時，會觸發此函數並通過line server傳回的event參數取得相關資訊
     print("*"*30)
     print("[使用者傳入文字訊息]")
+    # event.message.text: 使用者輸入的訊息內容
     # print(str(event))
     # 取得使用者說的文字
     user_msg = event.message.text
     print(f"使用者傳入的文字訊息「{user_msg}」")
     # 準備要回傳的文字訊息
     reply = TextSendMessage(text=f"Hi,你剛才說的是「{user_msg}」對吧！")
-    
     # 回傳訊息
     # 若需要回覆多筆訊息可使用
     # line_bot_api.reply_message(token, 回應給使用者的訊息物件)
@@ -85,8 +84,8 @@ import os
 # 如果應用程式被執行執行
 if __name__ == "__main__":
     print("[伺服器應用程式開始運行]")
-    # 取得遠端環境使用的連接端口，若是在本機端測試則預設開啟於port=5000
-    port = int(os.environ.get('PORT', 5000))
+    # 取得遠端環境使用的連接端口，若是在本機端測試則預設開啟於port=5001
+    port = int(os.environ.get('PORT', 5001))
     print(f"[Flask即將運行於連接端口:{port}]")
     print(f"若在本地測試請輸入指令開啟測試通道: ./ngrok http {port} ")
     # 啟動應用程式

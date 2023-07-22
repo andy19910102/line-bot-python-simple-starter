@@ -28,6 +28,9 @@ faq = {
     '捷運': TextSendMessage(
         text="搭乘捷運至木柵線科技大樓站步行5分鐘即可抵達。"
     ),
+    '公車': TextSendMessage(
+        text="搭乘公車至科技大樓站步行5分鐘即可抵達。"
+    ),
     '營業地址': LocationSendMessage(
         title='my location',
         address='Tokyo',
