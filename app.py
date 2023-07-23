@@ -1,84 +1,58 @@
 # 運行以下程式需安裝模組: line-bot-sdk, flask, pyquery
 # 安裝方式，輸入指令:
 # pip install line-bot-sdk flask pyquery
-
-# 引入flask模組
 from flask import Flask, request, abort
-# 引入linebot相關模組
-from linebot import (
-    LineBotApi, WebhookHandler
+
+from linebot.v3 import (
+    WebhookHandler
 )
-from linebot.exceptions import (
+from linebot.v3.exceptions import (
     InvalidSignatureError
 )
-
-# 如需增加其他處理器請參閱以下網址的 Message objects 章節
-# https://github.com/line/line-bot-sdk-python
-from linebot.models import (
+from linebot.v3.messaging import (
+    Configuration,
+    ApiClient,
+    MessagingApi,
+    ReplyMessageRequest,
+    TextMessage
+)
+from linebot.v3.webhooks import (
     MessageEvent,
-    TextMessage,
-    StickerMessage,
-    TextSendMessage,
-    StickerSendMessage,
-    LocationSendMessage,
-    ImageSendMessage,
-    TemplateSendMessage,
-    ButtonsTemplate,
-    PostbackAction,
-    MessageAction,
-    URIAction,
-    CarouselTemplate,
-    CarouselColumn
+    TextMessageContent
 )
 
-# 定義應用程式是一個Flask類別產生的實例
 app = Flask(__name__)
 
-# LINE的Webhook為了辨識開發者身份所需的資料
-# 相關訊息進入網址(https://developers.line.me/console/)
-CHANNEL_ACCESS_TOKEN = "請將此字串置換成你的_CHANNEL_ACCESS_TOKEN"
-CHANNEL_SECRET = "請將此字串置換成你的_CHANNEL_SECRET"
+configuration = Configuration(access_token='YOUR_CHANNEL_ACCESS_TOKEN')
+handler = WebhookHandler('YOUR_CHANNEL_SECRET')
 
-# ********* 以下為 X-LINE-SIGNATURE 驗證程序 *********
-line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(CHANNEL_SECRET)
-@app.route("/", methods=["POST"])
+@app.route("/", methods=['POST'])
 def callback():
-    # 當LINE發送訊息給機器人時，從header取得 X-Line-Signature
-    # X-Line-Signature 用於驗證頻道是否合法
-    signature = request.headers["X-Line-Signature"]
-    # 將取得到的body內容轉換為文字處理
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
+
+    # get request body as text
     body = request.get_data(as_text=True)
-    print("[訊息進入X-Line-Signature驗證程序]")
-    # print(body)
-    # 一但驗證合法後，將body內容傳至handler
+    app.logger.info("Request body: " + body)
+
+    # handle webhook body
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
-        print("[X-LINE-Signature驗證失敗，請檢查CHANNEL_SECRET,CHANNEL_ACCESS_TOKEN是否正確]")
+        app.logger.info("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
     return 'OK'
-# ********* 以上為 X-LINE-SIGNATURE 驗證程序 *********
 
-# 文字訊息傳入時的處理器
-@handler.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
-    # 當有文字訊息傳入時，會觸發此函數並通過line server傳回的event參數取得相關資訊
-    print("*"*30)
-    print("[使用者傳入文字訊息]")
-    # event.message.text: 使用者輸入的訊息內容
-    # print(str(event))
-    # 取得使用者說的文字
-    user_msg = event.message.text
-    print(f"使用者傳入的文字訊息「{user_msg}」")
-    # 準備要回傳的文字訊息
-    reply = TextSendMessage(text=f"Hi,你剛才說的是「{user_msg}」對吧！")
-    # 回傳訊息
-    # 若需要回覆多筆訊息可使用
-    # line_bot_api.reply_message(token, 回應給使用者的訊息物件)
-    line_bot_api.reply_message(
-        event.reply_token,
-        reply)
+    with ApiClient(configuration) as api_client:
+        line_bot_api = MessagingApi(api_client)
+        line_bot_api.reply_message_with_http_info(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text=event.message.text)]
+            )
+        )
 
 import os
 # 如果應用程式被執行執行
