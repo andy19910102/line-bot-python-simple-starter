@@ -1,5 +1,15 @@
-from linebot.models import (
-    MessageEvent, TextMessage, StickerMessage, TextSendMessage, ImageSendMessage, StickerSendMessage, LocationSendMessage, TemplateSendMessage, ButtonsTemplate, PostbackAction, MessageAction, URIAction, CarouselTemplate, CarouselColumn, QuickReply, QuickReplyButton
+from linebot.v3.messaging import (
+    StickerMessage,
+    ImageMessage,
+    TextMessage,
+    LocationMessage,
+    TemplateMessage,
+    CarouselTemplate,
+    CarouselColumn,
+    QuickReply,
+    QuickReplyItem,
+    MessageAction,
+    URIAction,
 )
 
 # 官方文件
@@ -7,37 +17,37 @@ from linebot.models import (
 
 # 常見問答表
 faq = {
-    '貼圖': StickerSendMessage(
+    '貼圖': StickerMessage(
         package_id='1',
         sticker_id='1'
     ),
-    '門市照片': ImageSendMessage(
+    '門市照片': ImageMessage(
         original_content_url="https://fastly.picsum.photos/id/395/900/400.jpg?hmac=3y0-Ce1YyrujBAT9q2_GVXqC3CIgTSxPOKoLHlmspr0",
         preview_image_url="https://fastly.picsum.photos/id/395/900/400.jpg?hmac=3y0-Ce1YyrujBAT9q2_GVXqC3CIgTSxPOKoLHlmspr0"
     ),
-    '交通': TextSendMessage(text='請問您想使用何種方式前往？',
+    '交通': TextMessage(text='請問您想使用何種方式前往？',
                           quick_reply=QuickReply(items=[
-                              QuickReplyButton(action=MessageAction(
+                              QuickReplyItem(action=MessageAction(
                                   label="搭乘捷運", text="捷運")
                               ),
-                              QuickReplyButton(action=MessageAction(
+                              QuickReplyItem(action=MessageAction(
                                   label="搭乘公車", text="公車")
                               )
                           ])
                           ),
-    '捷運': TextSendMessage(
+    '捷運': TextMessage(
         text="搭乘捷運至木柵線科技大樓站步行5分鐘即可抵達。"
     ),
-    '公車': TextSendMessage(
+    '公車': TextMessage(
         text="搭乘公車至科技大樓站步行5分鐘即可抵達。"
     ),
-    '營業地址': LocationSendMessage(
+    '營業地址': LocationMessage(
         title='my location',
         address='Tokyo',
         latitude=35.65910807942215,
         longitude=139.70372892916203
     ),
-    '查詢匯率': TemplateSendMessage(
+    '查詢匯率': TemplateMessage(
         alt_text='Carousel template',
         template=CarouselTemplate(
             columns=[
@@ -109,7 +119,7 @@ faq = {
 # 主選單
 # Carousel Template
 # https://developers.line.biz/en/docs/messaging-api/message-types/#carousel-template
-menu = TemplateSendMessage(
+menu = TemplateMessage(
     alt_text='Carousel template',
     template=CarouselTemplate(
         columns=[
