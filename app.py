@@ -1,6 +1,7 @@
 # 運行以下程式需安裝模組: line-bot-sdk, flask, pyquery
 # 安裝方式，輸入指令:
 # pip install line-bot-sdk flask pyquery
+
 from flask import Flask, request, abort
 
 from linebot.v3 import (
@@ -25,6 +26,8 @@ from linebot.v3.webhooks import (
     StickerMessageContent,
     LocationMessageContent,
 )
+
+import os
 
 app = Flask(__name__)
 
@@ -107,7 +110,6 @@ def handle_location_message(event):
             )
         )
 
-import os
 # 如果應用程式被執行執行
 if __name__ == "__main__":
     print("[伺服器應用程式開始運行]")
