@@ -31,8 +31,8 @@ import os
 
 app = Flask(__name__)
 
-configuration = Configuration(access_token='YOUR_CHANNEL_ACCESS_TOKEN')
-handler = WebhookHandler('YOUR_CHANNEL_SECRET')
+configuration = Configuration(access_token="將此替換成你的_CHANNEL_ACCESS_TOKEN")
+handler = WebhookHandler("將此替換成你的_CHANNEL_SECRET")
 
 @app.route("/", methods=['POST'])
 def callback():
@@ -40,15 +40,13 @@ def callback():
     signature = request.headers['X-Line-Signature']
     # get request body as text
     body = request.get_data(as_text=True)
-    print("#" * 40)
-    app.logger.info("Request body: " + body)
+    # app.logger.info("Request body: " + body)
     # handle webhook body
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
         app.logger.info("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
-    print("#" * 40)
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessageContent)
@@ -56,11 +54,19 @@ def handle_message(event):
     with ApiClient(configuration) as api_client:
         # 當使用者傳入文字訊息時
         line_bot_api = MessagingApi(api_client)
+        # 在此的 evnet.message.text 即是 Line Server 取得的使用者文字訊息
         user_msg = event.message.text
+        print("#" * 30)
+        print("使用者傳入的文字訊息是:", user_msg)
+        print("#" * 30)
         bot_msg = TextMessage(text=f"What you said is: {user_msg}")
+
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
+                # 放置於 ReplyMessageRequest 的 messages 裡的物件即是要回傳給使用者的訊息
+                # 必須注意由於 Line 有其使用的內部格式
+                # 因此要回覆的訊息務必使用 Line 官方提供的類別來產生回應物件
                 messages=[
                     bot_msg
                 ]
@@ -74,7 +80,10 @@ def handle_sticker_message(event):
         line_bot_api = MessagingApi(api_client)
         sticker_id = event.message.sticker_id
         package_id = event.message.package_id
-        keywords = ", ".join(event.message.keywords)
+        keywords_msg = "這張貼圖背後沒有關鍵字"
+        if len(event.message.keywords) > 0:
+            keywords_msg = "這張貼圖的關鍵字有:"
+            keywords_msg += ", ".join(event.message.keywords)
         # 可以使用的貼圖清單
         # https://developers.line.biz/en/docs/messaging-api/sticker-list/
         line_bot_api.reply_message_with_http_info(
@@ -82,9 +91,9 @@ def handle_sticker_message(event):
                 reply_token=event.reply_token,
                 messages=[
                     StickerMessage(package_id="6325", sticker_id="10979904"),
-                    TextMessage(text=f"You just sent a sticker. Here is the information of the sticker:"),
-                    TextMessage(text=f"package_id is {package_id}, sticker_id is {sticker_id}."),
-                    TextMessage(text=f"The keywords are {keywords}."),
+                    TextMessage(text=f"你剛才傳入了一張貼圖，以下是這張貼圖的資訊:"),
+                    TextMessage(text=f"貼圖包ID為 {package_id} ，貼圖ID為 {sticker_id} 。"),
+                    TextMessage(text=keywords_msg),
                 ]
             )
         )
