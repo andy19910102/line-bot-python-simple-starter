@@ -8,7 +8,7 @@
 
 # 開始本機端開發
 
-- [] 啟動ngrok `ngrok http 5001`
+- [] 啟動ngrok `./ngrok http 5001`
 - [] 啟動應用程式點擊右上角播放鍵按鈕或是輸入指令 `python app.py`
 - [] 將ngrok的網址貼到Line Developer的Webhook URL中
 - [] 透過Line App掃描QR Code並開始對話
