@@ -34,7 +34,7 @@ CHANNEL_ACCESS_TOKEN = "將此替換成你的_CHANNEL_ACCESS_TOKEN"
 handler = WebhookHandler(CHANNEL_SECRET)
 configuration = Configuration(access_token=CHANNEL_ACCESS_TOKEN)
 
-
+# @app.route() 用以表達伺服器應用程式路由將會對應到 webhooks 的路徑中
 @app.route("/", methods=['POST'])
 def callback():
     # ====== 以下為接收並驗證 Line Server 傳來訊息的流程，不需更動 ======
@@ -51,11 +51,12 @@ def callback():
         abort(400)
     return 'OK'
 
+# 此處理器負責處理接收到Line Server傳來的文字訊息時的流程
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     with ApiClient(configuration) as api_client:
-        print("#" * 30)
         # 當使用者傳入文字訊息時
+        print("#" * 30)
         line_bot_api = MessagingApi(api_client)
         # event 為 Line Server 傳來的事件物件所有關於一筆訊息的資料皆可從中取得
         # print("event 一個Line文件訊息的事件物件:", event)
@@ -78,6 +79,7 @@ def handle_message(event):
             )
         )
 
+# 此處理器負責處理接收到Line Server傳來的貼圖訊息時的流程
 @handler.add(MessageEvent, message=StickerMessageContent)
 def handle_sticker_message(event):
     with ApiClient(configuration) as api_client:
@@ -103,6 +105,7 @@ def handle_sticker_message(event):
             )
         )
 
+# 此處理器負責處理接收到Line Server傳來的地理位置訊息時的流程
 @handler.add(MessageEvent, message=LocationMessageContent)
 def handle_location_message(event):
     with ApiClient(configuration) as api_client:
