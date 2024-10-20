@@ -27,6 +27,9 @@ import os
 
 app = Flask(__name__)
 
+# Line Channel 可於 Line Developer Console 申辦
+# https://developers.line.biz/en/
+
 # TODO: 填入你的 CHANNEL_SECRET 與 CHANNEL_ACCESS_TOKEN
 CHANNEL_SECRET = "將此替換成你的_CHANNEL_SECRET"
 CHANNEL_ACCESS_TOKEN = "將此替換成你的_CHANNEL_ACCESS_TOKEN"
