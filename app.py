@@ -1,7 +1,3 @@
-# 運行以下程式需安裝模組: line-bot-sdk, flask, pyquery
-# 安裝方式，輸入指令:
-# pip install line-bot-sdk flask pyquery
-
 from flask import Flask, request, abort
 
 from linebot.v3 import (
@@ -36,6 +32,7 @@ handler = WebhookHandler("將此替換成你的_CHANNEL_SECRET")
 
 @app.route("/", methods=['POST'])
 def callback():
+    # ====== 以下為接收並驗證 Line Server 傳來訊息的流程，不需更動 ======
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
     # get request body as text
@@ -45,21 +42,23 @@ def callback():
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
-        app.logger.info("Invalid signature. Please check your channel access token/channel secret.")
+        app.logger.info("signature驗證錯誤，請檢查Secret與Access Token是否正確...")
         abort(400)
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     with ApiClient(configuration) as api_client:
+        print("#" * 30)
         # 當使用者傳入文字訊息時
         line_bot_api = MessagingApi(api_client)
+        # event 為 Line Server 傳來的事件物件所有關於一筆訊息的資料皆可從中取得
+        # print("event 一個Line文件訊息的事件物件:", event)
         # 在此的 evnet.message.text 即是 Line Server 取得的使用者文字訊息
         user_msg = event.message.text
-        print("#" * 30)
         print("使用者傳入的文字訊息是:", user_msg)
-        print("#" * 30)
-        bot_msg = TextMessage(text=f"What you said is: {user_msg}")
+        # 使用TextMessage產生一段用於回應使用者的Line文字訊息
+        bot_msg = TextMessage(text=f"你剛才說的是: {user_msg}")
 
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(
@@ -68,6 +67,7 @@ def handle_message(event):
                 # 必須注意由於 Line 有其使用的內部格式
                 # 因此要回覆的訊息務必使用 Line 官方提供的類別來產生回應物件
                 messages=[
+                    # 要回應的內容放在這個串列中
                     bot_msg
                 ]
             )
