@@ -53,73 +53,6 @@ faq = {
         latitude=35.65910807942215,
         longitude=139.70372892916203
     ),
-    "查詢匯率": TemplateMessage(
-        alt_text="Carousel template",
-        template=CarouselTemplate(
-            columns=[
-                CarouselColumn(
-                    # 匯率選單一圖片網址
-                    thumbnail_image_url="https://fastly.picsum.photos/id/352/900/400.jpg?hmac=WTGHcbEoO0_hYEWOE7qNwdFmPC-D7czQpegOKNqpZ0M",
-                    title="匯率選單一",
-                    text="點選下方按鈕查詢即時匯率",
-                    actions=[
-                        MessageAction(
-                            label="查詢美金",
-                            text="美金"
-                        ),
-                        MessageAction(
-                            label="查詢港幣",
-                            text="港幣"
-                        ),
-                        MessageAction(
-                            label="查詢英鎊",
-                            text="英鎊"
-                        )
-                    ]
-                ),
-                CarouselColumn(
-                    # 匯率選單二圖片網址
-                    thumbnail_image_url="https://fastly.picsum.photos/id/364/900/400.jpg?hmac=70RqcdkXgO-mMYyuGgaFXlB0twshHiFdvzgGhAOZggw",
-                    title="匯率選單二",
-                    text="點選下方按鈕查詢即時匯率",
-                    actions=[
-                        MessageAction(
-                            label="查詢澳幣",
-                            text="澳幣"
-                        ),
-                        MessageAction(
-                            label="查詢加拿大幣",
-                            text="加拿大幣"
-                        ),
-                        MessageAction(
-                            label="查詢新加坡幣",
-                            text="新加坡幣"
-                        )
-                    ]
-                ),
-                CarouselColumn(
-                    # 匯率選單三圖片網址
-                    thumbnail_image_url="https://fastly.picsum.photos/id/355/900/400.jpg?hmac=G2DG7Nfhf-KOUh0nSEYX7fO7TeC0zN7pkCRkb2Nj0M4",
-                    title="匯率選單三",
-                    text="點選下方按鈕查詢即時匯率",
-                    actions=[
-                        MessageAction(
-                            label="查詢瑞士法郎",
-                            text="瑞士法郎"
-                        ),
-                        MessageAction(
-                            label="查詢日圓",
-                            text="日圓"
-                        ),
-                        MessageAction(
-                            label="查詢瑞典幣",
-                            text="瑞典幣"
-                        )
-                    ]
-                )
-            ]
-        )
-    )
 }
 
 # 主選單
@@ -136,8 +69,8 @@ menu = TemplateMessage(
                 text="點選下方按鈕開始互動",
                 actions=[
                     MessageAction(
-                        label="查詢匯率",
-                        text="查詢匯率"
+                        label="貼圖",
+                        text="貼圖"
                     ),
                     MessageAction(
                         label="營業時間",
